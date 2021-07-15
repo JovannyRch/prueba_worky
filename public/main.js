@@ -31,13 +31,14 @@ const filterPostBy = (posts, filters) => {
     const filtersArray = filters.split('|')
 
     for (const filter of filtersArray) {
-      const filterInLowerCase = filter.toLowerCase()
+      const regex = new RegExp(`\\b${filter.toLowerCase()}\\b`)
+
       const titleInLowerCase = post.data.title.toLowerCase()
-      if (titleInLowerCase.includes(filterInLowerCase)) {
+      if (regex.test(titleInLowerCase)) {
         return true
       }
       const selftextInLowerCase = post.data.selftext.toLowerCase()
-      if (selftextInLowerCase.includes(filterInLowerCase)) {
+      if (regex.test(selftextInLowerCase)) {
         return true
       }
     }
