@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prueba Worky - Jovanny Ramírez Chimal</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./main.js"></script>
+  </head>
+  <body>
+    <h1>Pruebta Worky - Jovanny Ramírez Chimal</h1>
+    <div id="app">
+      <div v-if="isLoading">
+        ...Cargando
+      </div>
+      <div v-for="hobbit in hobbits">
+        <h4><b>{{hobbit.hobbit}} - Total {{hobbit.total}}</b></h4>
+        <pre>
+          {{hobbit.posts}}
+        </pre>
+      </div>
+      <div v-if="topHobbit !== null">
+        <h3>
+          Hobbit con más posts:
+          <b>{{topHobbit.hobbit}}</b>
+        </h3>
+      </div>
+    </div>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          hobbits: [],
+          isLoading: true,
+          topHobbit: null,
+        },
+        mounted: function () {
+          this.isLoading = true
+          mainWorkyTest().then((data) => {
+            this.hobbits = data
+            this.isLoading = false
+            const [top] = this.hobbits
+            this.topHobbit = top
+          })
+        },
+      })
+    </script>
+  </body>
+</html>
